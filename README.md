@@ -318,3 +318,8 @@ Add screenshots of:
 * Email Notifications
 
 ---
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+Copyright (c) 2026 Yashita Arya
