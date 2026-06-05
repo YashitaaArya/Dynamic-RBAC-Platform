@@ -2,7 +2,7 @@
 
 A complete Django-based Dynamic Role-Based Access Control (RBAC) platform with multi-organization support, feature-level permissions, tenant data isolation, audit logging, and REST APIs.
 
-Built with Django 5, Django REST Framework, PostgreSQL, and Bootstrap 5, this project demonstrates a practical, database-driven RBAC architecture for enterprise-style applications.
+Built with Django 5, Django REST Framework (DRF), PostgreSQL, and Bootstrap 5, this project demonstrates a practical, database-driven RBAC architecture for enterprise-style applications.
 
 ---
 
@@ -26,95 +26,23 @@ This project is organized into Django apps and supporting directories that keep 
 
 ```text
 Dynamic-RBAC-Platform/
-├── .env
-├── .env.example
-├── README.md
+│
+├── accounts/           # Authentication and user management
+├── organizations/      # Organization management
+├── roles/              # Roles, features and permissions
+├── permissions_app/    # Permission utilities and mixins
+├── audit_logs/         # Audit trail services
+├── dashboard/          # Dashboard views
+├── api/                # REST APIs
+│
+├── templates/          # Django templates
+├── static/             # CSS and static assets
+│
+├── rbac_system/        # Django project settings
 ├── manage.py
 ├── requirements.txt
-├── db.sqlite3
-├── .git/
-├── .venv/
-├── accounts/
-│   ├── admin.py
-│   ├── api.py
-│   ├── apps.py
-│   ├── forms.py
-│   ├── migrations/
-│   ├── models.py
-│   ├── serializers.py
-│   ├── urls.py
-│   └── views.py
-├── api/
-│   ├── urls.py
-│   └── __init__.py
-├── audit_logs/
-│   ├── admin.py
-│   ├── api.py
-│   ├── apps.py
-│   ├── migrations/
-│   ├── models.py
-│   ├── serializers.py
-│   ├── services.py
-│   ├── urls.py
-│   └── views.py
-├── dashboard/
-│   ├── apps.py
-│   ├── urls.py
-│   └── views.py
-├── organizations/
-│   ├── admin.py
-│   ├── api.py
-│   ├── apps.py
-│   ├── forms.py
-│   ├── management/
-│   ├── migrations/
-│   ├── models.py
-│   ├── serializers.py
-│   ├── urls.py
-│   └── views.py
-├── permissions_app/
-│   ├── apps.py
-│   ├── mixins.py
-│   ├── permissions.py
-│   ├── templatetags/
-│   ├── utils.py
-│   └── __init__.py
-├── roles/
-│   ├── admin.py
-│   ├── api.py
-│   ├── apps.py
-│   ├── forms.py
-│   ├── migrations/
-│   ├── models.py
-│   ├── serializers.py
-│   ├── urls.py
-│   └── views.py
-├── templates/
-│   ├── base.html
-│   ├── accounts/
-│   ├── audit_logs/
-│   ├── dashboard/
-│   ├── features/
-│   ├── includes/
-│   ├── organizations/
-│   ├── roles/
-│   └── users/
-├── static/
-│   └── css/
-│       └── styles.css
-└── rbac_system/
-    ├── accounts/
-    ├── api/
-    ├── asgi.py
-    ├── audit_logs/
-    ├── dashboard/
-    ├── organizations/
-    ├── permissions_app/
-    ├── roles/
-    ├── settings.py
-    ├── urls.py
-    ├── wsgi.py
-    └── __init__.py
+├── .env.example
+└── README.md
 ```
 
 ---
@@ -247,26 +175,6 @@ python manage.py runserver
 
 ---
 
-## Notes
-
-- The application enforces permission checks both at the view layer and in the template UI.
-- Organization-scoped queries prevent users from accessing data outside their tenant.
-- Audit logging captures who changed what and when, preserving a trace for admin actions.
-
----
-
-## License
-
-This repository is provided as-is for demonstration and learning purposes.
-
----
-
-## Contact
-
-For questions or improvements, edit the repository documentation or open an issue in the source repository.
-
----
-
 # Default Credentials
 
 ## Super Admin
@@ -296,6 +204,26 @@ Password: Manager123!
 Username: employee
 Password: Employee123!
 ```
+
+---
+
+## Notes
+
+- The application enforces permission checks both at the view layer and in the template UI.
+- Organization-scoped queries prevent users from accessing data outside their tenant.
+- Audit logging captures who changed what and when, preserving a trace for admin actions.
+
+---
+
+## License
+
+This repository is provided as-is for demonstration and learning purposes.
+
+---
+
+## Contact
+
+For questions or improvements, edit the repository documentation or open an issue in the source repository.
 
 ---
 
