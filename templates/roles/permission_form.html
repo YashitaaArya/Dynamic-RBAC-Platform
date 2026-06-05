@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load rbac_tags %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h2">Permissions for {{ role.name }}</h1>
+        <p class="text-muted">Update feature access for this role.</p>
+    </div>
+    <a class="btn btn-secondary" href="{% url 'role_list' %}">Back to Roles</a>
+</div>
+<form method="post">
+    {% csrf_token %}
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>View</th>
+                    <th>Create</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for feature in features %}
+                    <tr>
+                        <td>{{ feature.name }} <small class="text-muted">({{ feature.code }})</small></td>
+                        {% with permission=permission_map|get_item:feature.id %}
+                            <td><input type="checkbox" name="view_{{ feature.id }}" {% if permission and permission.can_view %}checked{% endif %}></td>
+                            <td><input type="checkbox" name="create_{{ feature.id }}" {% if permission and permission.can_create %}checked{% endif %}></td>
+                            <td><input type="checkbox" name="update_{{ feature.id }}" {% if permission and permission.can_update %}checked{% endif %}></td>
+                            <td><input type="checkbox" name="delete_{{ feature.id }}" {% if permission and permission.can_delete %}checked{% endif %}></td>
+                        {% endwith %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-primary" type="submit">Save Permissions</button>
+</form>
+{% endblock %}

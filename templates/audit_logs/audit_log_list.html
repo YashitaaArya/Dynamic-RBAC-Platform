@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="h2 mb-4">Audit Logs</h1>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>User</th>
+                <th>Organization</th>
+                <th>Action</th>
+                <th>Model</th>
+                <th>Object ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in audit_logs %}
+                <tr>
+                    <td>{{ log.timestamp }}</td>
+                    <td>{{ log.user.username }}</td>
+                    <td>{{ log.organization.name }}</td>
+                    <td>{{ log.action }}</td>
+                    <td>{{ log.model_name }}</td>
+                    <td>{{ log.object_id }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="6">No audit logs available.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
