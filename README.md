@@ -2,7 +2,7 @@
 
 A complete Django-based Dynamic Role-Based Access Control (RBAC) platform with multi-organization support, feature-level permissions, tenant data isolation, audit logging, and REST APIs.
 
-Built with Django 5, Django REST Framework, PostgreSQL, and Bootstrap 5, this project demonstrates a practical, database-driven RBAC architecture for enterprise-style applications.
+Built with Django 5, Django REST Framework (DRF), PostgreSQL, and Bootstrap 5, this project demonstrates a practical, database-driven RBAC architecture for enterprise-style applications.
 
 ---
 
