@@ -223,7 +223,7 @@ This repository is provided as-is for demonstration and learning purposes.
 
 ## Contact
 
-For questions or improvements, edit the repository documentation or open an issue in the source repository.
+For questions or improvements, open an issue in the source repository.
 
 ---
 
@@ -293,18 +293,6 @@ For questions or improvements, edit the repository documentation or open an issu
 * Backend permission enforcement
 * Audit trail logging
 * Protected CRUD operations
-
----
-
-# Screenshots
-
-Add screenshots of:
-
-* Dashboard
-* User Management
-* Role Management
-* Permission Management
-* Audit Logs
 
 ---
 
