@@ -26,95 +26,23 @@ This project is organized into Django apps and supporting directories that keep 
 
 ```text
 Dynamic-RBAC-Platform/
-├── .env
-├── .env.example
-├── README.md
+│
+├── accounts/           # Authentication and user management
+├── organizations/      # Organization management
+├── roles/              # Roles, features and permissions
+├── permissions_app/    # Permission utilities and mixins
+├── audit_logs/         # Audit trail services
+├── dashboard/          # Dashboard views
+├── api/                # REST APIs
+│
+├── templates/          # Django templates
+├── static/             # CSS and static assets
+│
+├── rbac_system/        # Django project settings
 ├── manage.py
 ├── requirements.txt
-├── db.sqlite3
-├── .git/
-├── .venv/
-├── accounts/
-│   ├── admin.py
-│   ├── api.py
-│   ├── apps.py
-│   ├── forms.py
-│   ├── migrations/
-│   ├── models.py
-│   ├── serializers.py
-│   ├── urls.py
-│   └── views.py
-├── api/
-│   ├── urls.py
-│   └── __init__.py
-├── audit_logs/
-│   ├── admin.py
-│   ├── api.py
-│   ├── apps.py
-│   ├── migrations/
-│   ├── models.py
-│   ├── serializers.py
-│   ├── services.py
-│   ├── urls.py
-│   └── views.py
-├── dashboard/
-│   ├── apps.py
-│   ├── urls.py
-│   └── views.py
-├── organizations/
-│   ├── admin.py
-│   ├── api.py
-│   ├── apps.py
-│   ├── forms.py
-│   ├── management/
-│   ├── migrations/
-│   ├── models.py
-│   ├── serializers.py
-│   ├── urls.py
-│   └── views.py
-├── permissions_app/
-│   ├── apps.py
-│   ├── mixins.py
-│   ├── permissions.py
-│   ├── templatetags/
-│   ├── utils.py
-│   └── __init__.py
-├── roles/
-│   ├── admin.py
-│   ├── api.py
-│   ├── apps.py
-│   ├── forms.py
-│   ├── migrations/
-│   ├── models.py
-│   ├── serializers.py
-│   ├── urls.py
-│   └── views.py
-├── templates/
-│   ├── base.html
-│   ├── accounts/
-│   ├── audit_logs/
-│   ├── dashboard/
-│   ├── features/
-│   ├── includes/
-│   ├── organizations/
-│   ├── roles/
-│   └── users/
-├── static/
-│   └── css/
-│       └── styles.css
-└── rbac_system/
-    ├── accounts/
-    ├── api/
-    ├── asgi.py
-    ├── audit_logs/
-    ├── dashboard/
-    ├── organizations/
-    ├── permissions_app/
-    ├── roles/
-    ├── settings.py
-    ├── urls.py
-    ├── wsgi.py
-    └── __init__.py
+├── .env.example
+└── README.md
 ```
 
 ---
