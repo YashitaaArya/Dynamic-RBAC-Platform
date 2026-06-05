@@ -1,32 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3 mb-4">
     <div>
-        <h1 class="h2">Features</h1>
-        <p class="text-muted">All available system features and codes.</p>
+        <h1 class="h3 mb-1 page-title">Features</h1>
+        <p class="page-subtitle mb-0">View all system features and their identifiers.</p>
     </div>
 </div>
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Code</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for feature in features %}
-                <tr>
-                    <td>{{ feature.name }}</td>
-                    <td>{{ feature.code }}</td>
-                    <td>{{ feature.description }}</td>
-                </tr>
-            {% empty %}
-                <tr><td colspan="3">No features found.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="card rounded-4 shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Code</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for feature in features %}
+                        <tr>
+                            <td class="fw-semibold">{{ feature.name }}</td>
+                            <td>{{ feature.code }}</td>
+                            <td>{{ feature.description }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3" class="empty-state">No features found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

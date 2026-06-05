@@ -1,68 +1,104 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 class="h2">Dashboard</h1>
-<div class="row gy-4">
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1 page-title">Dashboard</h1>
+        <p class="page-subtitle mb-0">Overview of your tenant health and recent audit activity.</p>
+    </div>
+</div>
+
+<div class="row g-4">
     <div class="col-sm-6 col-xl-3">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>Total Organizations</h5>
-                <p class="display-6">{{ total_organizations }}</p>
+        <div class="card card-stats rounded-4">
+            <div class="card-body d-flex align-items-center gap-3">
+                <div class="stats-icon bg-soft-indigo">
+                    <i class="bi bi-building"></i>
+                </div>
+                <div>
+                    <small class="text-uppercase text-muted">Organizations</small>
+                    <h2 class="mb-0">{{ total_organizations }}</h2>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-sm-6 col-xl-3">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>Total Users</h5>
-                <p class="display-6">{{ total_users }}</p>
+        <div class="card card-stats rounded-4">
+            <div class="card-body d-flex align-items-center gap-3">
+                <div class="stats-icon bg-soft-indigo">
+                    <i class="bi bi-people"></i>
+                </div>
+                <div>
+                    <small class="text-uppercase text-muted">Users</small>
+                    <h2 class="mb-0">{{ total_users }}</h2>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-sm-6 col-xl-3">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>Total Roles</h5>
-                <p class="display-6">{{ total_roles }}</p>
+        <div class="card card-stats rounded-4">
+            <div class="card-body d-flex align-items-center gap-3">
+                <div class="stats-icon bg-soft-indigo">
+                    <i class="bi bi-person-badge"></i>
+                </div>
+                <div>
+                    <small class="text-uppercase text-muted">Roles</small>
+                    <h2 class="mb-0">{{ total_roles }}</h2>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-sm-6 col-xl-3">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>Total Features</h5>
-                <p class="display-6">{{ total_features }}</p>
+        <div class="card card-stats rounded-4">
+            <div class="card-body d-flex align-items-center gap-3">
+                <div class="stats-icon bg-soft-indigo">
+                    <i class="bi bi-grid-1x2"></i>
+                </div>
+                <div>
+                    <small class="text-uppercase text-muted">Features</small>
+                    <h2 class="mb-0">{{ total_features }}</h2>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div class="mt-4">
-    <h3>Recent Audit Logs</h3>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Time</th>
-                    <th>User</th>
-                    <th>Action</th>
-                    <th>Model</th>
-                    <th>Object</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for log in recent_audit_logs %}
+
+<div class="card rounded-4 mt-4">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h2 class="h5 mb-1 page-title">Recent Audit Logs</h2>
+                <p class="page-subtitle mb-0">Monitor recent activity across your organization.</p>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
                     <tr>
-                        <td>{{ log.timestamp }}</td>
-                        <td>{{ log.user.username }}</td>
-                        <td>{{ log.action }}</td>
-                        <td>{{ log.model_name }}</td>
-                        <td>{{ log.object_id }}</td>
+                        <th>Time</th>
+                        <th>User</th>
+                        <th>Action</th>
+                        <th>Model</th>
+                        <th>Object</th>
                     </tr>
-                {% empty %}
-                    <tr><td colspan="5">No audit logs found.</td></tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for log in recent_audit_logs %}
+                        <tr>
+                            <td>{{ log.timestamp }}</td>
+                            <td>{{ log.user.username }}</td>
+                            <td>{{ log.action }}</td>
+                            <td>{{ log.model_name }}</td>
+                            <td>{{ log.object_id }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="empty-state">No audit logs found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {% endblock %}

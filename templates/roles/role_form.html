@@ -2,15 +2,20 @@
 
 {% block content %}
 <div class="row justify-content-center">
-    <div class="col-md-7">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h3 class="card-title mb-4">{{ view.object|default_if_none:'Create Role' }}</h3>
+    <div class="col-xl-7 col-lg-8">
+        <div class="card rounded-4 shadow-sm">
+            <div class="card-body p-5">
+                <div class="mb-4">
+                    <h1 class="h4 mb-1">{{ view.object|default_if_none:'Create Role' }}</h1>
+                    <p class="page-subtitle mb-0">Define the role name, description, and default access settings.</p>
+                </div>
                 <form method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button class="btn btn-primary" type="submit">Save</button>
-                    <a class="btn btn-secondary" href="{% url 'role_list' %}">Back</a>
+                    <div class="d-flex flex-column flex-sm-row gap-3 mt-4 form-actions">
+                        <button class="btn btn-indigo btn-pill px-4 py-2" type="submit">Save</button>
+                        <a class="btn btn-outline-indigo btn-pill px-4 py-2" href="{% url 'role_list' %}">Back</a>
+                    </div>
                 </form>
             </div>
         </div>
