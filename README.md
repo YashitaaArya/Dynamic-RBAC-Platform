@@ -1,206 +1,174 @@
 # Dynamic RBAC Platform
 
-A Django-based Dynamic Role-Based Access Control (RBAC) platform with Multi-Organization support, feature-level permissions, audit logging, and REST APIs.
+A complete Django-based Dynamic Role-Based Access Control (RBAC) platform with multi-organization support, feature-level permissions, tenant data isolation, audit logging, and REST APIs.
 
-This project demonstrates secure access control, tenant isolation, dynamic permission management, and audit tracking using Django, Django REST Framework, PostgreSQL, and Bootstrap 5.
-
----
-
-# Features
-
-## Multi-Organization Support
-
-* Organization-specific users and roles
-* Tenant-level data isolation
-* Super Admin access across organizations
-
-## Dynamic RBAC
-
-* Database-driven permissions
-* Feature-level access control
-* View, Create, Update, Delete permissions
-* No hardcoded role checks
-
-## Role Management
-
-* Default roles:
-
-  * Super Admin
-  * Organization Admin
-  * Manager
-  * Employee
-* Support for custom roles
-* Dynamic permission assignment
-
-## User Management
-
-* Create and manage users
-* Assign roles dynamically
-* Organization-scoped user access
-
-## Audit Logging
-
-Tracks:
-
-* User creation and updates
-* Role changes
-* Permission updates
-* Organization changes
-
-Includes:
-
-* Who performed the action
-* What was changed
-* When it occurred
-
-## Security
-
-* Backend permission enforcement
-* Permission-based UI rendering
-* Direct URL access protection
-* Organization-level data isolation
-
-## REST APIs
-
-Built using Django REST Framework (DRF).
+Built with Django 5, Django REST Framework, PostgreSQL, and Bootstrap 5, this project demonstrates a practical, database-driven RBAC architecture for enterprise-style applications.
 
 ---
 
-# Tech Stack
+## Key Features
 
-### Backend
-
-* Django 5
-* Django REST Framework
-
-### Database
-
-* PostgreSQL
-
-### Frontend
-
-* Django Templates
-* Bootstrap 5
-
-### Authentication
-
-* Django Session Authentication
+- Multi-organization tenancy with tenant-scoped users, roles, and permissions
+- Dynamic role and feature permission management
+- Fine-grained View/Create/Update/Delete permission flags
+- Audit trail for user, role, permission, and organization changes
+- Permission-aware UI rendering for dashboards and admin panels
+- REST API endpoints for roles, features, permissions, and audit logs
+- Backend enforcement of organization scoping and permission checks
 
 ---
 
-# Project Structure
+## Architecture Overview
+
+This project is organized into Django apps and supporting directories that keep tenancy, permissions, audit trails, and UI rendering separated.
+
+### Project Directory
 
 ```text
 Dynamic-RBAC-Platform/
-│
-├── accounts/           # Authentication and user management
-├── organizations/      # Organization management
-├── roles/              # Roles, features and permissions
-├── permissions_app/    # Permission utilities and mixins
-├── audit_logs/         # Audit trail services
-├── dashboard/          # Dashboard views
-├── api/                # DRF APIs
-│
-├── templates/          # Django templates
-├── static/             # CSS and static assets
-│
-├── rbac_system/        # Django project settings
+├── .env
+├── .env.example
+├── README.md
 ├── manage.py
 ├── requirements.txt
-└── README.md
+├── db.sqlite3
+├── .git/
+├── .venv/
+├── accounts/
+│   ├── admin.py
+│   ├── api.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── migrations/
+│   ├── models.py
+│   ├── serializers.py
+│   ├── urls.py
+│   └── views.py
+├── api/
+│   ├── urls.py
+│   └── __init__.py
+├── audit_logs/
+│   ├── admin.py
+│   ├── api.py
+│   ├── apps.py
+│   ├── migrations/
+│   ├── models.py
+│   ├── serializers.py
+│   ├── services.py
+│   ├── urls.py
+│   └── views.py
+├── dashboard/
+│   ├── apps.py
+│   ├── urls.py
+│   └── views.py
+├── organizations/
+│   ├── admin.py
+│   ├── api.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── management/
+│   ├── migrations/
+│   ├── models.py
+│   ├── serializers.py
+│   ├── urls.py
+│   └── views.py
+├── permissions_app/
+│   ├── apps.py
+│   ├── mixins.py
+│   ├── permissions.py
+│   ├── templatetags/
+│   ├── utils.py
+│   └── __init__.py
+├── roles/
+│   ├── admin.py
+│   ├── api.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── migrations/
+│   ├── models.py
+│   ├── serializers.py
+│   ├── urls.py
+│   └── views.py
+├── templates/
+│   ├── base.html
+│   ├── accounts/
+│   ├── audit_logs/
+│   ├── dashboard/
+│   ├── features/
+│   ├── includes/
+│   ├── organizations/
+│   ├── roles/
+│   └── users/
+├── static/
+│   └── css/
+│       └── styles.css
+└── rbac_system/
+    ├── accounts/
+    ├── api/
+    ├── asgi.py
+    ├── audit_logs/
+    ├── dashboard/
+    ├── organizations/
+    ├── permissions_app/
+    ├── roles/
+    ├── settings.py
+    ├── urls.py
+    ├── wsgi.py
+    └── __init__.py
 ```
 
 ---
 
-# Database Design
+## Data Model
 
-## Organization
+### Organization
+Tenant entity that isolates users, roles, and permissions.
 
-Stores tenant information.
+### Role
+Organization-scoped role with a name, description, and optional defaults.
 
-```text
-Organization
-├── name
-├── description
-└── timestamps
-```
+### Feature
+Represents a functional area such as Dashboard, User Management, Role Management, or Audit Logs.
 
-## Role
+### RoleFeaturePermission
+Maps each role to features and stores boolean permissions for:
+- `can_view`
+- `can_create`
+- `can_update`
+- `can_delete`
 
-Represents organization-specific roles.
-
-```text
-Role
-├── organization
-├── name
-├── description
-└── is_default
-```
-
-## Feature
-
-Represents application modules such as:
-
-* Dashboard
-* User Management
-* Organization Management
-* Role Management
-* Audit Logs
-
-## RoleFeaturePermission
-
-Stores dynamic permissions.
-
-```text
-RoleFeaturePermission
-├── role
-├── feature
-├── can_view
-├── can_create
-├── can_update
-└── can_delete
-```
-
-## UserProfile
-
-Links users with organizations and roles.
-
-```text
-UserProfile
-├── user
-├── organization
-├── role
-└── is_active
-```
+### UserProfile
+Ties Django users to an organization and a role.
 
 ---
 
-# Installation
+## Installation
 
-## 1. Clone Repository
+### 1. Clone the repository
 
 ```bash
 git clone <repository-url>
+git checkout main
 cd Dynamic-RBAC-Platform
 ```
 
-## 2. Create Virtual Environment
+### 2. Create a virtual environment
 
-### Windows
+Windows:
 
 ```bash
 python -m venv .venv
 .venv\Scripts\activate
 ```
 
-### Linux / macOS
+macOS / Linux:
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 ```
 
-## 3. Install Dependencies
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -208,37 +176,36 @@ pip install -r requirements.txt
 
 ---
 
-# Environment Variables
+## Configuration
 
-Create a `.env` file:
+Create a `.env` file in the project root with the following values:
 
 ```env
 SECRET_KEY=your-secret-key
 DEBUG=True
-DJANGO_ALLOWED_HOSTS=127.0.0.1,localhost
-DATABASE_URL=postgres://username:password@localhost:5432/rbac_db
+DJANGO_ALLOWED_HOSTS=example.com
+DATABASE_URL=postgres://username:password@db-host:5432/rbac_db
 ```
+
+If you prefer SQLite for local development, update `DATABASE_URL` appropriately.
 
 ---
 
-# PostgreSQL Setup
+## PostgreSQL Setup
 
-Create a database:
+Create the database and optional user:
 
 ```sql
 CREATE DATABASE rbac_db;
-```
-
-(Optional)
-
-```sql
 CREATE USER rbac_user WITH PASSWORD 'ChangeMe123!';
 GRANT ALL PRIVILEGES ON DATABASE rbac_db TO rbac_user;
 ```
 
+Then ensure `.env` points to the created database.
+
 ---
 
-# Database Migration
+## Run Migrations
 
 ```bash
 python manage.py migrate
@@ -246,45 +213,57 @@ python manage.py migrate
 
 ---
 
-# Seed Initial Data
+## Seed Initial Data
 
 ```bash
 python manage.py seed_data
 ```
 
-This command creates:
+This command typically creates:
 
-* Organizations
-* Features
-* Default Roles
-* Permission Mappings
-* Sample Users
+- organizations
+- features
+- default roles
+- initial permission mappings
+- sample users
 
 ---
 
-# Run Application
+## Run the Project
 
 ```bash
 python manage.py runserver
 ```
 
-Application URL:
+---
 
-```text
-http://127.0.0.1:8000/
-```
+## Useful Commands
 
-Admin Panel:
+- `python manage.py makemigrations`
+- `python manage.py migrate`
+- `python manage.py createsuperuser`
+- `python manage.py seed_data`
+- `python manage.py check`
 
-```text
-http://127.0.0.1:8000/admin/
-```
+---
 
-API Root:
+## Notes
 
-```text
-http://127.0.0.1:8000/api/
-```
+- The application enforces permission checks both at the view layer and in the template UI.
+- Organization-scoped queries prevent users from accessing data outside their tenant.
+- Audit logging captures who changed what and when, preserving a trace for admin actions.
+
+---
+
+## License
+
+This repository is provided as-is for demonstration and learning purposes.
+
+---
+
+## Contact
+
+For questions or improvements, edit the repository documentation or open an issue in the source repository.
 
 ---
 
